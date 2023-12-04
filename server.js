@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 
 const { dbCreator } = require("./DB/initDB");
+const verifyApiToken = require("./middleware/verifyApiToken");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +24,11 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 
 // API Roots
 app.use("/", require("./routes/root"));
+app.use("/auth", require("./routes/user/auth"));
 app.use("/register", require("./routes/user/register"));
+
+app.use(verifyApiToken);
+
 app.use("/products", require("./routes/api/products"));
 app.use("/users", require("./routes/api/users"));
 app.use("/order", require("./routes/api/orders"));

@@ -1,6 +1,9 @@
 const User = require("../models/User");
 const { userValidator } = require("../config/dataValidator");
 
+//  WARNING: This is a simple demonstration of register functionality.
+//  If you intend to use this code in a production environment,
+//  please replace the registration mechanism with a robust crypto library for better security.
 const handleNewUser = async (req, res) => {
   try {
     const { user } = req.body;

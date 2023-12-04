@@ -76,8 +76,10 @@ class User {
    */
   static findOneUser(criteria, callback) {
     return new Promise((resolve, reject) => {
+      const showPassword = criteria.showPassword ? "Users.password, " : "";
+
       // Initialize the base SQL query
-      let sql = `SELECT Users.username, Users.email, Users.address, 
+      let sql = `SELECT Users.username, ${showPassword} Users.email, Users.address, 
       GROUP_CONCAT(Roles.role) AS roles
       FROM Users  
       LEFT JOIN Roles ON Users.id = Roles.user_id 
