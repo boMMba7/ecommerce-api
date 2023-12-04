@@ -27,6 +27,15 @@ const dbCreator = () => {
     `);
 
     db.run(`
+      CREATE TABLE IF NOT EXISTS Roles (
+        id INTEGER PRIMARY KEY,
+        user_id INTEGER,
+        role TEXT,
+        FOREIGN KEY (user_id) REFERENCES Users(id)
+      )
+    `);
+
+    db.run(`
       CREATE TABLE IF NOT EXISTS Orders (
         id INTEGER PRIMARY KEY,
         user_id INTEGER,

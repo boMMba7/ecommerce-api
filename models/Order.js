@@ -25,11 +25,11 @@ class Orders {
       const sql =
         "INSERT INTO Orders (user_id, order_date, status) VALUES (?, ?, ?)";
 
-      db.run(sql, [userId, orderDate, status], (err, order) => {
+      db.run(sql, [userId, orderDate, status], (err) => {
         if (err) {
           reject(err);
         } else {
-          resolve(order);
+          resolve("Order added");
         }
       });
     });
@@ -92,9 +92,9 @@ class Orders {
     return new Promise((resolve, reject) => {
       const sql = `
       SELECT Orders.id AS order_id, Orders.order_date, Orders.status,
-      OrderItems.quantity, OrderItems.subtotal,
-      Users.username,
-      Products.name AS product_name, Products.description AS product_description
+        OrderItems.quantity, OrderItems.subtotal,
+        Users.username,
+        Products.name AS product_name, Products.description AS product_description
       FROM Orders
       JOIN OrderItems ON Orders.id = OrderItems.order_id
       JOIN Users ON Orders.user_id = Users.id

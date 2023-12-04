@@ -72,12 +72,17 @@ class User {
    * @param {string} criteria.username - Optional username to filter by.
    * @param {string} criteria.email - Optional email to filter by.
    * @param {function} callback - A callback function to handle the result or errors.
-   * @returns {Promise} A promise that resolves with the user or rejects with an error.
+   * @returns {Promise} A promise that resolves with the user and his roles or rejects with an error.
    */
   static findOneUser(criteria, callback) {
     return new Promise((resolve, reject) => {
       // Initialize the base SQL query
-      let sql = "SELECT * FROM Users WHERE 1=1";
+      let sql = `SELECT Users.username, Users.email, Users.address, 
+      GROUP_CONCAT(Roles.role) AS roles
+      FROM Users  
+      LEFT JOIN Roles ON Users.id = Roles.user_id 
+      WHERE 1=1
+      `;
       // Initialize an array to store parameter values for the query
       const params = [];
 
@@ -97,6 +102,7 @@ class User {
         params.push(criteria.email);
       }
 
+      sql += " GROUP BY Users.username";
       // Execute the SQL query with parameters
       db.get(sql, params, (err, user) => {
         if (err) {
@@ -106,6 +112,27 @@ class User {
           if (callback) callback(undefined, user);
           resolve(user);
         }
+      });
+    });
+  }
+
+  /**
+   * Adds a role to a user in the Roles table.
+   * @param {number} userId - The ID of the user to whom the role should be added.
+   * @param {string} role - The role to be added to the user.
+   * @returns {Promise<string>} A promise that resolves with a success message ("Role added")
+   * if the role is successfully added to the user, or rejects with an error if the insertion fails.
+   */
+  static addRole(userId, role) {
+    return new Promise((resolve, reject) => {
+      const sql = `
+        INSERT INTO Roles 
+          (user_id, role) VALUES (?, ?)
+      `;
+
+      db.run(sql, [userId, role], (err) => {
+        if (err) return reject(err);
+        resolve("Role added");
       });
     });
   }
