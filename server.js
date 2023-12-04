@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 
-const { dbCreator } = require("./DB/connectDB");
+const { dbCreator } = require("./DB/initDB");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,9 +23,10 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 
 // API Roots
 app.use("/", require("./routes/root"));
+app.use("/register", require("./routes/user/register"));
 app.use("/products", require("./routes/api/products"));
 app.use("/users", require("./routes/api/users"));
-app.use("/register", require("./routes/user/register"));
+app.use("/order", require("./routes/api/orders"));
 
 app.listen(PORT, () => {
   console.log(`Server is listen on port: ${PORT}`);

@@ -63,4 +63,16 @@ const userValidator = (user) => {
   return schemmaUser.validate(user);
 };
 
-module.exports = { productsValidator, userValidator };
+const orderValidator = (order) => {
+  const orderSchema = Joi.object({
+    userId: Joi.number().required().label("User Id"),
+    orderDate: Joi.string().isoDate().required().label("Order Date YYYY-MM-DD"),
+    status: Joi.string().required(),
+  })
+    .required()
+    .label("Order");
+
+  return orderSchema.validate(order);
+};
+
+module.exports = { productsValidator, userValidator, orderValidator };
