@@ -1,8 +1,10 @@
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
 
 const { dbCreator } = require("./DB/initDB");
 const verifyApiToken = require("./middleware/verifyApiToken");
+const corsOptions = require("./config/corsOptions");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,11 +17,13 @@ app.get("/healthcheck", (req, res) => res.sendStatus(200));
 
 //    --------  MIDDLEWARE's --------
 
-//server static files, like css images ... will be acessible in public folder
+//  CORS checking if the domain have credentials and is allow to do request
+app.use(cors(corsOptions));
 
 //built-in middleware for json
 app.use(express.json());
 
+//server static files, like css images ... will be acessible in public folder
 app.use("/", express.static(path.join(__dirname, "/public")));
 
 // API Roots

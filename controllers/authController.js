@@ -14,7 +14,6 @@ const handleLogin = async (req, res) => {
   const criteria = { username, showPassword: true };
   const user = await User.findOneUser(criteria);
 
-  console.log("user found: ", user);
   //  check if the username exist
   if (!user)
     return res.status(401).json({ message: "Wrong username or password." }); // 401 unauthorized
