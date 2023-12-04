@@ -37,7 +37,7 @@ const insertProduct = async (req, res) => {
     if (error) return res.status(400).json({ message: error.message });
 
     let inserted = 0;
-    let fail = 0;
+    let fail = [];
 
     // Use Promise.all to await all promises
     await Promise.all(
@@ -54,7 +54,7 @@ const insertProduct = async (req, res) => {
           inserted++;
           console.log("Inserted Product:", insertedProduct);
         } catch (error) {
-          fail++;
+          fail.push(newProduct);
           console.log(error);
         }
       })

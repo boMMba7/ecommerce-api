@@ -75,4 +75,26 @@ const orderValidator = (order) => {
   return orderSchema.validate(order);
 };
 
-module.exports = { productsValidator, userValidator, orderValidator };
+const orderItemsValidator = (orderItems) => {
+  const orderItemsSchemma = Joi.object({
+    orderId: Joi.number().required().label("Order Id"),
+    productId: Joi.number().required().label("Product Id"),
+    quantity: Joi.number().required().label("Quantity"),
+    subTotal: Joi.number().required().label("Sub-total"),
+  });
+
+  const collectionOrderItems = Joi.array()
+    .required()
+    .min(1)
+    .items(orderItemsSchemma)
+    .label("Collection of Order Items");
+
+  return collectionOrderItems.validate(orderItems);
+};
+
+module.exports = {
+  productsValidator,
+  userValidator,
+  orderValidator,
+  orderItemsValidator,
+};
