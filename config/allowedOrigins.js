@@ -10,7 +10,7 @@ const allowedOrigins = [
     "https://ecomerce-api-9543.onrender.com",
 
     //localhost Vue just for test
-    "http://localhost",
+    "http://localhost:3000",
 ];
 
 module.exports = allowedOrigins;
