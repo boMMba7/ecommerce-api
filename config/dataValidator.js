@@ -12,20 +12,27 @@ const Joi = require("joi");
  * @property {Object} value - The validated value, or undefined if validation fails.
  */
 const productsValidator = (products) => {
-  const schemmaProduct = Joi.object({
-    name: Joi.string().min(1).required().label("Name"),
-    description: Joi.string().max(400).label("Description"),
-    price: Joi.number().required().min(0).precision(2).label("Price"),
-    stockQuantity: Joi.number().required().label("Stock quantity"),
-  });
+    const urlSchema = Joi.string()
+        .uri({
+            scheme: ["http", "https"],
+        })
+        .label("Image url");
 
-  const schemaProducts = Joi.array()
-    .required()
-    .min(1)
-    .items(schemmaProduct)
-    .label("Products");
+    const schemmaProduct = Joi.object({
+        description: Joi.string().max(400).label("Description"),
+        imageUrl: urlSchema,
+        name: Joi.string().min(1).required().label("Name"),
+        price: Joi.number().required().min(0).precision(2).label("Price"),
+        categoryId: Joi.number().required().label("Category id"),
+    });
 
-  return schemaProducts.validate(products);
+    const schemaProducts = Joi.array()
+        .required()
+        .min(1)
+        .items(schemmaProduct)
+        .label("Products");
+
+    return schemaProducts.validate(products);
 };
 
 /**
@@ -40,61 +47,65 @@ const productsValidator = (products) => {
  * @property {Object} value - The validated value, or undefined if validation fails.
  */
 const userValidator = (user) => {
-  const passwordSchema = Joi.string()
-    .min(8) // Minimum length of 8 characters
-    .pattern(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
-    )
-    .required()
-    .label("Password")
-    .messages({
-      "string.pattern.base":
-        "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
-    });
+    const passwordSchema = Joi.string()
+        .min(8) // Minimum length of 8 characters
+        .pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/
+        )
+        .required()
+        .label("Password")
+        .messages({
+            "string.pattern.base":
+                "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
+        });
 
-  const schemmaUser = Joi.object({
-    username: Joi.string().min(3).required().label("Username"),
-    email: Joi.string().email().required().label("Email"),
-    password: passwordSchema,
-    address: Joi.string().label("Address"),
-  })
-    .required()
-    .label("User");
-  return schemmaUser.validate(user);
+    const schemmaUser = Joi.object({
+        firstName: Joi.string().min(1).required().label("First name"),
+        lastName: Joi.string().min(1).required().label("Last name"),
+        email: Joi.string().email().required().label("Email"),
+        password: passwordSchema,
+        address: Joi.string().label("Address"),
+    })
+        .required()
+        .label("User");
+    return schemmaUser.validate(user);
 };
 
 const orderValidator = (order) => {
-  const orderSchema = Joi.object({
-    userId: Joi.number().required().label("User Id"),
-    orderDate: Joi.string().isoDate().required().label("Order Date YYYY-MM-DD"),
-    status: Joi.string().required(),
-  })
-    .required()
-    .label("Order");
+    const orderSchema = Joi.object({
+        userId: Joi.number().required().label("User Id"),
+        orderDate: Joi.string()
+            .isoDate()
+            .required()
+            .label("Order Date YYYY-MM-DD"),
+        status: Joi.string().required(),
+    })
+        .required()
+        .label("Order");
 
-  return orderSchema.validate(order);
+    return orderSchema.validate(order);
 };
 
 const orderItemsValidator = (orderItems) => {
-  const orderItemsSchemma = Joi.object({
-    orderId: Joi.number().required().label("Order Id"),
-    productId: Joi.number().required().label("Product Id"),
-    quantity: Joi.number().required().label("Quantity"),
-    subTotal: Joi.number().required().label("Sub-total"),
-  });
+    const orderItemsSchemma = Joi.object({
+        orderId: Joi.number().required().label("Order Id"),
+        productId: Joi.number().required().label("Product Id"),
+        quantity: Joi.number().required().label("Quantity"),
+        subTotal: Joi.number().required().label("Sub-total"),
+    });
 
-  const collectionOrderItems = Joi.array()
-    .required()
-    .min(1)
-    .items(orderItemsSchemma)
-    .label("Collection of Order Items");
+    const collectionOrderItems = Joi.array()
+        .required()
+        .min(1)
+        .items(orderItemsSchemma)
+        .label("Collection of Order Items");
 
-  return collectionOrderItems.validate(orderItems);
+    return collectionOrderItems.validate(orderItems);
 };
 
 module.exports = {
-  productsValidator,
-  userValidator,
-  orderValidator,
-  orderItemsValidator,
+    productsValidator,
+    userValidator,
+    orderValidator,
+    orderItemsValidator,
 };

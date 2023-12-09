@@ -2,15 +2,15 @@ const express = require("express");
 const path = require("path");
 const cors = require("cors");
 
-const { dbCreator } = require("./DB/initDB");
 const verifyApiToken = require("./middleware/verifyApiToken");
 const corsOptions = require("./config/corsOptions");
+const { dbConfig } = require("./DB/dbConfig");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-//create db if dont exist
-dbCreator();
+//Config. the DB
+dbConfig();
 
 // health check for hoster check if server is alive and working
 app.get("/healthcheck", (req, res) => res.sendStatus(200));
@@ -38,5 +38,5 @@ app.use("/users", require("./routes/api/users"));
 app.use("/order", require("./routes/api/orders"));
 
 app.listen(PORT, () => {
-  console.log(`Server is listen on port: ${PORT}`);
+    console.log(`Server is listen on port: ${PORT}`);
 });

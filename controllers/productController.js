@@ -7,16 +7,16 @@ const { productsValidator } = require("../config/dataValidator");
  * @param {Object} res - The response object.
  */
 const getAllProducts = (req, res) => {
-  try {
-    Product.getAllProducts((err, products) => {
-      if (err) return res.status(400).json({ message: err.message });
+    try {
+        Product.getAllProducts((err, products) => {
+            if (err) return res.status(400).json({ message: err.message });
 
-      res.json(products);
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
+            res.json(products);
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 };
 
 /**
@@ -31,40 +31,43 @@ const getAllProducts = (req, res) => {
  * @param {Object} res - The response object.
  */
 const insertProduct = async (req, res) => {
-  try {
-    const { products } = req.body;
-    const { error } = productsValidator(products);
-    if (error) return res.status(400).json({ message: error.message });
+    try {
+        const { products } = req.body;
+        const { error } = productsValidator(products);
+        if (error) return res.status(400).json({ message: error.message });
 
-    let inserted = 0;
-    let fail = [];
+        let inserted = 0;
+        let fail = [];
 
-    // Use Promise.all to await all promises
-    await Promise.all(
-      products.map(async (p) => {
-        const newProduct = new Product(
-          p.name,
-          p.description,
-          p.price,
-          p.stockQuantity
+        // Use Promise.all to await all promises
+        await Promise.all(
+            products.map(async (p) => {
+                const newProduct = new Product(
+                    p.description,
+                    p.imageUrl,
+                    p.name,
+                    p.price,
+                    p.categoryId
+                );
+
+                try {
+                    const insertedProduct = await Product.insertProduct(
+                        newProduct
+                    );
+                    inserted++;
+                    console.log("Inserted Product:", insertedProduct);
+                } catch (error) {
+                    fail.push(newProduct);
+                    console.log("Error inserting: ", newProduct, error);
+                }
+            })
         );
 
-        try {
-          const insertedProduct = await Product.insertProduct(newProduct);
-          inserted++;
-          console.log("Inserted Product:", insertedProduct);
-        } catch (error) {
-          fail.push(newProduct);
-          console.log(error);
-        }
-      })
-    );
-
-    res.status(200).json({ inserted, fail });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Internal Server Error" + error });
-  }
+        res.status(200).json({ inserted, fail });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" + error });
+    }
 };
 
 module.exports = { getAllProducts, insertProduct };
