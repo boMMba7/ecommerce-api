@@ -40,8 +40,36 @@ class Product {
         });
     }
 
-    static getAllProducts(callback) {
-        db.all("SELECT * FROM Products", callback);
+    /**
+     * Get products based on provided product IDs.
+     * If no product IDs are provided, retrieves all products.
+     *
+     * @param {number[]} [productIds] - An array of product IDs.
+     * @returns {Promise<Object[]>} A promise that resolves to an array of products.
+     * @throws {Error} If an error occurs during the database query.
+     */
+    static getProducts(productIds) {
+        return new Promise((resolve, reject) => {
+            let query = `
+              SELECT 
+                  Products.id, Products.description, Products.imageurl, Products.name, Products.price,
+                  Categories.id AS category_id, Categories.category_name
+              FROM Products
+              JOIN Categories ON Categories.id = Products.category_id`;
+
+            if (productIds && productIds.length > 0) {
+                const placeholders = productIds.map(() => "?").join(",");
+                query += ` WHERE Products.id IN (${placeholders})`;
+            }
+
+            db.all(query, productIds, (err, products) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(products);
+                }
+            });
+        });
     }
 }
 

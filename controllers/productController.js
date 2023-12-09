@@ -1,18 +1,12 @@
 const Product = require("../models/Product");
 const { productsValidator } = require("../config/dataValidator");
 
-/**
- * Controller function to get all products.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- */
-const getAllProducts = (req, res) => {
+const getProducts = async (req, res) => {
     try {
-        Product.getAllProducts((err, products) => {
-            if (err) return res.status(400).json({ message: err.message });
+        const { productsIds } = req.body;
 
-            res.json(products);
-        });
+        const products = await Product.getProducts(productsIds);
+        res.status(200).json(products);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -70,4 +64,4 @@ const insertProduct = async (req, res) => {
     }
 };
 
-module.exports = { getAllProducts, insertProduct };
+module.exports = { getProducts, insertProduct };
