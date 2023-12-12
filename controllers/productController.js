@@ -3,9 +3,21 @@ const { productsValidator } = require("../config/dataValidator");
 
 const getProducts = async (req, res) => {
     try {
-        const { productsIds } = req.body;
+        const { productsIds } = req.query;
 
         const products = await Product.getProducts(productsIds);
+        res.status(200).json(products);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+const findProducts = async (req, res) => {
+    try {
+        const { filter } = req.query;
+        console.log(filter);
+        const products = await Product.findProducts(filter);
         res.status(200).json(products);
     } catch (error) {
         console.log(error);
@@ -64,4 +76,4 @@ const insertProduct = async (req, res) => {
     }
 };
 
-module.exports = { getProducts, insertProduct };
+module.exports = { getProducts, insertProduct, findProducts };

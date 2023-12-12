@@ -8,4 +8,6 @@ router
     .get(productController.getProducts)
     .post(productController.insertProduct);
 
+router.route("/find").get(productController.findProducts);
+
 module.exports = router;

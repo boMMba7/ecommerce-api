@@ -7,7 +7,7 @@ const corsOptions = require("./config/corsOptions");
 const { dbConfig } = require("./DB/dbConfig");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 //Config. the DB
 dbConfig();
@@ -36,6 +36,8 @@ app.use(verifyApiToken);
 app.use("/products", require("./routes/api/products"));
 app.use("/users", require("./routes/api/users"));
 app.use("/order", require("./routes/api/orders"));
+app.use("/order-items", require("./routes/api/orderItems"));
+app.use("/category", require("./routes/api/categories"));
 
 app.listen(PORT, () => {
     console.log(`Server is listen on port: ${PORT}`);

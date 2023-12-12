@@ -71,6 +71,52 @@ class Product {
             });
         });
     }
+
+    static findProducts(filter) {
+        return new Promise((resolve, reject) => {
+            let sql = "SELECT * FROM Products WHERE 1=1";
+
+            const params = [];
+
+            if (filter.id) {
+                sql += " AND id = ?";
+                params.push(filter.id);
+            }
+
+            if (filter.description) {
+                sql += " AND description LIKE ?";
+                params.push(`%${filter.description}%`);
+            }
+
+            if (filter.imageUrl) {
+                sql += " AND imageurl = ?";
+                params.push(filter.imageUrl);
+            }
+
+            if (filter.name) {
+                sql += " AND name = ?";
+                params.push(filter.name);
+            }
+
+            if (filter.price) {
+                sql += " AND price = ?";
+                params.push(filter.price);
+            }
+
+            if (filter.categoryId) {
+                sql += " AND category_id = ?";
+                params.push(filter.categoryId);
+            }
+
+            db.all(sql, params, (err, products) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(products);
+                }
+            });
+        });
+    }
 }
 
 module.exports = Product;
