@@ -7,7 +7,7 @@ const allowedOrigins = [
     "52.59.103.54",
 
     // Ecommerce Frontend
-    "https://ecomerce-api-9543.onrender.com",
+    "https://ecommerce-bbnd.onrender.com",
 
     //localhost Vue just for test
     "http://localhost:3000",
