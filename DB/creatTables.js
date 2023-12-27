@@ -21,9 +21,9 @@ const dbTablesCreator = () => {
         db.run(` 
           CREATE TABLE IF NOT EXISTS Products (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT DEFAULT NULL,
             description TEXT DEFAULT NULL,
             imageurl TEXT DEFAULT NULL,
-            name TEXT DEFAULT NULL,
             price REAL NOT NULL,
             category_id INTEGER NOT NULL,
             FOREIGN KEY (category_id) REFERENCES Categories (id)

@@ -16,7 +16,7 @@ const getProducts = async (req, res) => {
 const findProducts = async (req, res) => {
     try {
         const { filter } = req.query;
-        console.log(filter);
+
         const products = await Product.findProducts(filter);
         res.status(200).json(products);
     } catch (error) {

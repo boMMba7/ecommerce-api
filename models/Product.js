@@ -41,7 +41,7 @@ class Product {
     }
 
     /**
-     * Get products based on provided product IDs.
+     * Get products with respective category, based on provided product IDs .
      * If no product IDs are provided, retrieves all products.
      *
      * @param {number[]} [productIds] - An array of product IDs.
@@ -72,40 +72,46 @@ class Product {
         });
     }
 
-    static findProducts(filter) {
+    static findProducts(criteria) {
         return new Promise((resolve, reject) => {
-            let sql = "SELECT * FROM Products WHERE 1=1";
+            let sql = `
+            SELECT 
+                Products.id, Products.description, Products.imageurl, Products.name, Products.price,
+                Categories.id AS category_id, Categories.category_name
+            FROM Products
+            JOIN Categories ON Categories.id = Products.category_id
+            WHERE 1=1`;
 
             const params = [];
 
-            if (filter.id) {
+            if (criteria.id) {
                 sql += " AND id = ?";
-                params.push(filter.id);
+                params.push(criteria.id);
             }
 
-            if (filter.description) {
+            if (criteria.description) {
                 sql += " AND description LIKE ?";
-                params.push(`%${filter.description}%`);
+                params.push(`%${criteria.description}%`);
             }
 
-            if (filter.imageUrl) {
+            if (criteria.imageUrl) {
                 sql += " AND imageurl = ?";
-                params.push(filter.imageUrl);
+                params.push(criteria.imageUrl);
             }
 
-            if (filter.name) {
-                sql += " AND name = ?";
-                params.push(filter.name);
+            if (criteria.name) {
+                sql += " AND name LIKE ?";
+                params.push(`%${criteria.name}%`);
             }
 
-            if (filter.price) {
+            if (criteria.price) {
                 sql += " AND price = ?";
-                params.push(filter.price);
+                params.push(criteria.price);
             }
 
-            if (filter.categoryId) {
+            if (criteria.categoryId) {
                 sql += " AND category_id = ?";
-                params.push(filter.categoryId);
+                params.push(criteria.categoryId);
             }
 
             db.all(sql, params, (err, products) => {

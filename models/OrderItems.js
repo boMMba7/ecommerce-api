@@ -87,30 +87,40 @@ class OrderItems {
      *                           or random products if less than 5 products are sold.
      * @throws {Error} If there is an issue with the database query.
      */
-    static getTopSoldProducts = (limit = 5) => {
+    static getTopSoldProducts = (limit = 5, categoryId) => {
         return new Promise((resolve, reject) => {
-            const query = `
+            let query = `
             SELECT 
-                Products.id,
-                Products.name,
-                Products.description,
-                Products.price,
+                Products.id, Products.name, Products.description, Products.price, Products.imageurl,
                 Categories.category_name,
                 SUM(OrderItems.quantity) AS total_sold
             FROM OrderItems
             JOIN Products ON OrderItems.product_id = Products.id
             JOIN Categories ON Products.category_id = Categories.id
-            GROUP BY Products.id
-            ORDER BY total_sold DESC
-            LIMIT ? 
+            WHERE 1=1 
+            
         `;
 
-            db.all(query, [limit], async (err, rows) => {
+            const params = [];
+
+            if (categoryId) {
+                params.push(categoryId);
+                query += " AND Products.category_id = ?";
+            }
+
+            query += `
+                GROUP BY Products.id
+                ORDER BY total_sold DESC`;
+
+            params.push(limit);
+            query += " LIMIT ?";
+
+            db.all(query, params, async (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
                     // Check if the result array has less than limit products
-                    if (rows.length < limit) {
+                    if (!categoryId && rows.length < limit) {
                         //  fetch additional random products to fill the array
                         const xtraProducts = await Product.getProducts();
 

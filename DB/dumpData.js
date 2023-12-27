@@ -4,48 +4,42 @@ const dumpDataToDb = (db) => {
     // Dumping Data
     db.serialize(() => {
         // Dumping data for table `categories`
-        db.run(`
-          INSERT INTO Categories VALUES (1,'Electronics','string','string'),
-            (2,'Kites','These are Kites','https://images.unsplash.com/photo-1600387822941-a6ac49b2f0a3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8a2l0ZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (3,'Television','Television','https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NXx8dGVsZXZpc2lvbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (4,'Shoes','Shoes','https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8c2hvZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (5,'Clothes','Clothes',NULL),
-            (6,NULL,'Kids space',NULL),
-            (7,'Toys','Space for kids',NULL),
-            (8,'Demo3','This is Demo category','https://images.unsplash.com/photo-1560529178-855fa2041193?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (9,'Demo5','This is demo test','https://images.unsplash.com/photo-1545997281-2cfe4d4b740f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (10,'Demo','Demo','null'),
-            (11,'demo4','demo4','null'),
-            (12,'Demo10','Demo10','Demo10'),
-            (13,'Smartphones','This contains all sartphones','https://images.unsplash.com/photo-1510878933023-e2e2e3942fb0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80'),
-            (14,'Clocks','Collection of clocks','https://images.unsplash.com/photo-1585586463948-9e40851ed193?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'),
-            (15,'Kites','This is a collection of kites','https://images.unsplash.com/photo-1534640881905-039ca1e21a81?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8a2l0ZXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (16,'Books','This section contains Books','https://images.unsplash.com/photo-1524578271613-d550eacf6090?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8Ym9va3N8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (17,'Automobiles','Find all vehicles','https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (18,'Bags','High Quality Bags',NULL),
-            (19,'Groceries','Find all your groceries here','https://images.unsplash.com/photo-1543168256-418811576931?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Z3JvY2VyaWVzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'),
-            (20,'Biscuits','Tasty Biscuits','https://images.unsplash.com/photo-1531685932387-e60fae5f6163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTN8fGJpc2N1aXRzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')
-        `);
+        db.run(` 
+          INSERT INTO Categories VALUES 
+            (1,'Electronics', 'Dive into the world of innovation and technology with our Electronics category. From state-of-the-art gadgets to smart devices, this category is a haven for tech enthusiasts.', '/img/categories/eletronics.jpg'), 
+            (2,'Clothing', 'Explore the latest fashion trends and express your style with our Clothing category. From casual wear to elegant outfits, find the perfect ensemble for any occasion.', '/img/categories/fashion.jpeg'),
+            (3,'Home Decor', 'Infuse personality into your living spaces with our Home Decor category. Discover a curated collection of stylish and unique items that add flair and charm to your home.', '/img/categories/forniture.jpeg'),
+            (4,'Appliances', 'Simplify your daily routines with our Appliances category. Explore a range of modern and efficient appliances designed to make your life easier and more convenient.', '/img/categories/eletronics2.jpeg'),
+            (5,'Books', 'Embark on literary journeys and explore diverse worlds with our Books category. From bestsellers to hidden gems, find captivating stories that ignite your imagination.', '/img/categories/books.webp'),
+            (6,'Sports', 'Fuel your passion for fitness and adventure with our Sports category. Discover high-quality sports gear and equipment to elevate your active lifestyle and pursuits.', '/img/categories/sport.jpeg'),
+            (7,'Musical Instruments', 'Unleash your musical passion with our Musical Instruments category. From guitars to keyboards, discover the perfect instrument to create beautiful melodies and express your artistic side.', '/img/categories/music.jpg')
+          `);
 
         // Insert data into the products table
         db.run(`
-          INSERT INTO Products VALUES (1,'Microcontroller board for starters.','https://images.unsplash.com/photo-1608564697071-ddf911d81370?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzOHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Arduino UNO',500,9),
-            (2,'Highly accurate','https://images.unsplash.com/photo-1497997457905-3f85463eb0bc?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8c2Vuc29yfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Ultrasonic sensor',200,2),
-            (3,'hello World','https://images.unsplash.com/photo-1609584862854-57387c661076?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Hello World',100,1),
-            (4,'This is a Car','https://images.unsplash.com/photo-1600661653561-629509216228?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fGV2fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Tesla Car',10000,17),
-            (5,'This is demo200','https://images.unsplash.com/photo-1602526211905-6adc54adb8d2?ixid=MXwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','demo200',50000,1),
-            (6,'This is a toy','https://images.unsplash.com/photo-1563396983906-b3795482a59a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8dG95c3xlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Toy',200,3),
-            (7,'Demo','https://images.unsplash.com/photo-1469037784699-75dcff1cbf75?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjZ8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Demo',89,5),
-            (8,'This is a great Toy','https://images.unsplash.com/photo-1517348159000-002b80abf80f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzV8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Toy',500,1),
-            (9,'This is a car','https://images.unsplash.com/photo-1502877338535-766e1452684a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8Y2FyfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Car',5000,1),
-            (10,'This is a Iphone','https://images.unsplash.com/photo-1556656793-08538906a9f8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80','Iphone',1000,1),
-            (11,'This is a watch','https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80','Watch',2000,1),
-            (12,'This is a clock','https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y2xvY2t8ZW58MHx8MHw%3D&auto=format&fit=crop&w=500&q=60','Wall Clock',2000,14),
-            (13,'This is a TV','https://images.unsplash.com/photo-1571415060716-baff5f717c37?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8dHZ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','LG TV',5000,3),
-            (14,'This is a Samsung Smartphone','https://images.unsplash.com/photo-1553179459-4514c0f52f41?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fHNhbXN1bmclMjBzbWFydHBob25lfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Samsung Galaxy ',5000,13),
-            (15,'Fruits','https://images.unsplash.com/photo-1609257574707-a3114f91cefe?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNnx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Fruits',1500,2),
-            (16,'A great historical tamil novel by Amarar Kalki!','https://dwtr67e3ikfml.cloudfront.net/bookCovers/8d0aebe488c9389b799f9c153bc05717ce2fa45f','Ponniyin Selvan',2500,2),
-            (17,'This is a Historical clock','https://images.unsplash.com/photo-1415604934674-561df9abf539?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvY2tzfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60','Ancient Clock',1000,14)
+          INSERT INTO Products VALUES 
+            (1,'Smartphone', 'Experience the latest in mobile technology with our Smartphone Model X. Packed with advanced features, it is the perfect companion for your digital lifestyle.', '/img/products/smartphone.webp', 499.99, 1),
+            (2,'Laptop', 'Boost your productivity with the powerful Laptop Model Y. Whether you are working or gaming, this laptop delivers exceptional performance and sleek design.', '/img/products/laptop.jpeg', 999.99, 1),
+            (3,'T-Shirt', 'Stay stylish and comfortable with our Casual T-Shirt. Perfect for everyday wear, it adds a touch of fashion to your wardrobe.', '/img/products/tshert.jpeg', 19.99, 2),
+            (4,'Jeans', 'Discover the perfect fit and style with our Blue Jeans. Designed for both comfort and fashion, these jeans elevate your casual look.', '/img/products/jeans.jpeg', 39.99, 2),
+            (5,'Table Lamp', 'Illuminate your space with the Modern Table Lamp. Its contemporary design and soft glow create a welcoming ambiance in any room.', '/img/products/table-lamp.jpeg', 29.99, 3),
+            (6,'Cushion', 'Add a touch of luxury to your living space with the Decorative Cushion. This cushion combines style and comfort for a cozy home.', '/img/products/cuchion.jpeg', 14.99, 3),  
+            (7,'Refrigerator', 'Upgrade your kitchen with the Smart Refrigerator. With advanced features and ample storage, it is the heart of a modern home.', '/img/products/refrigerator.jpeg', 899.99, 4),
+            (8,'Microwave Oven', 'Simplify your cooking experience with the Advanced Microwave Oven. Its intuitive features make meal preparation quick and easy.', '/img/products/microwave.jpg', 149.99, 4),
+            (9,'Novel', 'Escape into the world of literature with the Bestseller Novel. This captivating read is perfect for book enthusiasts and avid readers.', 'novel.jpg', 9.99, 5),
+            (10,'Fitness Tracker', 'Achieve your fitness goals with the Fitness Tracker Watch. Monitor your activity, track progress, and stay motivated on your health journey.', '/img/products/fitness-tracker.webp', 49.99, 6),
+            (11,'Soccer Ball', 'Enhance your soccer skills with the Professional Soccer Ball. Its durable design ensures optimal performance on the field.', '/img/products/football.jpeg', 19.99, 7),
+            (12,'Running Shoes', 'Experience comfort and style during your runs with the Comfortable Running Shoes. Designed for active lifestyles, they provide support and performance.', '/img/products/running-shoes.jpg', 59.99, 7),
+            (13,'Smart Refrigerator with AI', 'Elevate your kitchen with the Smart Refrigerator. Featuring AI technology, it adapts to your preferences and enhances your culinary experience.', '/img/products/smartrefrigerator.jpeg', 1200, 1),
+            (14,'Programming Book Bundle', 'Expand your coding skills with the Programming Book Bundle. This collection of programming books covers a range of topics for aspiring developers.', '/img/products/programming-books-bundle.webp', 50, 5),
+            (15,'Football Kit', 'Gear up for the game with the Football Kit. This kit includes everything you need for a thrilling match on the field.', '/img/products/football-kit.webp', 80, 6),
+            (16,'Digital Camera', 'Capture moments in stunning detail with the Digital Camera. Whether you are a photography enthusiast or a casual shooter, it delivers exceptional quality.', '/img/products/digital-camera.jpeg', 500, 1),
+            (17,'Gaming Laptop', 'Immerse yourself in gaming with the Gaming Laptop. Designed for high-performance gaming, it delivers a seamless and thrilling gaming experience.', '/img/products/gaming-laptop.webp', 1500, 1),
+            (18,'Fitness Tracker', 'Track your fitness journey with the Fitness Tracker. Its features include heart rate monitoring, activity tracking, and more to support your well-being.', '/img/products/fitness-tracker2.jpg', 90, 6),
+            (19,'Coffee Maker', 'Indulge in the perfect cup of coffee with the Coffee Maker. Its sleek design and advanced brewing technology ensure a delightful coffee experience.', '/img/products/coffe-maker.jpeg', 60, 1),
+            (20,'Wireless Earbuds', 'Experience wireless freedom with the Wireless Earbuds. Enjoy clear audio and convenience whether you are commuting, working out, or relaxing.', '/img/products/wireless-earbunds.webp', 40, 1),
+            (21,'Guitar', 'Unleash your musical talent with the Acoustic Guitar. Whether you are a beginner or a seasoned player, this guitar delivers rich and resonant tones.', '/img/products/gitar.png', 200, 7),
+            (22,'Office Chair', 'Upgrade your workspace with the Ergonomic Office Chair. Designed for comfort and support, it enhances your productivity during long work hours.', '/img/products/office-chair.jpg', 120, 1);
         `);
 
         // Insert data into the tokens table
