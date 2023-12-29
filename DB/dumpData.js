@@ -26,7 +26,7 @@ const dumpDataToDb = (db) => {
             (6,'Cushion', 'Add a touch of luxury to your living space with the Decorative Cushion. This cushion combines style and comfort for a cozy home.', '/img/products/cuchion.jpeg', 14.99, 3),  
             (7,'Refrigerator', 'Upgrade your kitchen with the Smart Refrigerator. With advanced features and ample storage, it is the heart of a modern home.', '/img/products/refrigerator.jpeg', 899.99, 4),
             (8,'Microwave Oven', 'Simplify your cooking experience with the Advanced Microwave Oven. Its intuitive features make meal preparation quick and easy.', '/img/products/microwave.jpg', 149.99, 4),
-            (9,'Novel', 'Escape into the world of literature with the Bestseller Novel. This captivating read is perfect for book enthusiasts and avid readers.', 'novel.jpg', 9.99, 5),
+            (9,'Novel', 'Escape into the world of literature with the Bestseller Novel. This captivating read is perfect for book enthusiasts and avid readers.', '/img/products/novel.jpg', 9.99, 5),
             (10,'Fitness Tracker', 'Achieve your fitness goals with the Fitness Tracker Watch. Monitor your activity, track progress, and stay motivated on your health journey.', '/img/products/fitness-tracker.webp', 49.99, 6),
             (11,'Soccer Ball', 'Enhance your soccer skills with the Professional Soccer Ball. Its durable design ensures optimal performance on the field.', '/img/products/football.jpeg', 19.99, 7),
             (12,'Running Shoes', 'Experience comfort and style during your runs with the Comfortable Running Shoes. Designed for active lifestyles, they provide support and performance.', '/img/products/running-shoes.jpg', 59.99, 7),
