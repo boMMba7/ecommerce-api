@@ -65,7 +65,7 @@ const userValidator = (user) => {
         email: Joi.string().email().required().label("Email"),
         password: passwordSchema,
         address: Joi.string().label("Address"),
-        checkbox: Joi.string().label("Agreement checkbox"),
+        checkbox: Joi.bool().label("Agreement checkbox"),
     })
         .required()
         .label("User");
