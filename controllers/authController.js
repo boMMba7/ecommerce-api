@@ -23,9 +23,11 @@ const handleLogin = async (req, res) => {
     if (decriptedPassword === user.password) {
         const encriptedUser = {
             userId: user.id,
+            firstName: user.first_name,
+            lastName: user.last_name,
             email: user.email,
+            address: user.address,
             roles: user.roles,
-            apiAccess: "(: -VERY-STRONG-ENCRYPETED-TOKEN- :)",
         };
 
         return res.status(200).json(encriptedUser);

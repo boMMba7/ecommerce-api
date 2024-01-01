@@ -87,7 +87,7 @@ class User {
                 : "";
 
             // Initialize the base SQL query
-            let sql = `SELECT Users.first_name, Users.last_name, ${showPassword} Users.email, Users.address, 
+            let sql = `SELECT Users.id, Users.first_name, Users.last_name, ${showPassword} Users.email, Users.address, 
                       GROUP_CONCAT(Roles.role) AS roles
                       FROM Users  
                       LEFT JOIN Roles ON Users.id = Roles.user_id 
